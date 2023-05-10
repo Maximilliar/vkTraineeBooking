@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Бронирование "Переговорной"</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+
+    <div class="container">
+        <form id="post-form" action="#">
+            <h1 class="main_text">Бронирование переговорной</h1>
+            <div class="towers">
+                <select class="list_wrapper" name="Башня">
+                    <option label="Выберите башню" value="null"></option>
+                    <option value="А">Башня: А</option>
+                    <option value="Б">Башня: Б</option>
+                </select>
+            </div>
+    
+            <div class="floors">
+                <select class="list_wrapper" name="Этаж"">
+                    <option label="Выберите этаж" value="null"></option>
+                </select>
+            </div>
+    
+            <div class="rooms">
+                <select class="list_wrapper" name="Переговорная">
+                    <option label="Выберите переговорную" value="null"></option>
+                </select>
+            </div>
+    
+            <div class="data">
+                <select class="list_wrapper" name="Дата">
+                    <option label="Выберите дату" value="null"></option>
+                </select>
+            </div>
+    
+            <div class="time">
+                <select class="list_wrapper" name="Время">
+                    <option label="Выберите время" value="null"></option>
+                </select>
+            </div>
+    
+            <div class="comment">
+                <textarea name="Comment" id="text" maxlength="1500" placeholder="Написать сообщение"></textarea>
+            </div>
+    
+            <div class="submit_block">
+                <button class="submit_btn" type="submit" id="post-btn">Отправить</button>
+                <button class="clear_btn" type="reset">Очистить</button>
+            </div>
+        </form>
+            <div class="clear_btn_wrapper">
+                
+            </div>
+            
+        <div class="footer">
+            <a href="https://github.com/maximilliar" target="_blank">© Maxim Makarenko</a>
+        </div>
+        
+    </div>
+
+
+   
+
+
+    <script src="js/script.js"></script>
+</body>
+</html>
