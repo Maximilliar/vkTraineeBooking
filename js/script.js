@@ -1,5 +1,7 @@
 window.addEventListener('DOMContentLoaded', () => {
 
+    // CreateBlocks
+
     function createDate(wrapperBlock, optionElement) {
         let Data = new Date();
         let Year = Data.getFullYear();
@@ -28,6 +30,7 @@ window.addEventListener('DOMContentLoaded', () => {
             const option = document.createElement(optionElement);
             option.textContent = `Сегодня: ${Day} ${fMonth} ${Year}`;
             option.value = `${option.textContent}`;
+            option.setAttribute('id','check');
             wrapper.append(option);
         };
 
@@ -57,28 +60,59 @@ window.addEventListener('DOMContentLoaded', () => {
 
     createDate('.data .list_wrapper', 'option');
 
-    function createTime(wrapperBlock, optionElement) {
+    function createTime() {
         let Data = new Date();
         let Hour = Data.getHours();
-        let Minutes = Data.getMinutes();
-        let Seconds = Data.getSeconds();
+        const blockChecked = document.querySelector("#post-form > div.data > select");
+        const optionData = document.getElementById('check');
+
+        blockChecked.addEventListener('change', () => {
+            if (Hour >= 10 && Hour <= 19 && optionData.selected === true) {
+                const optionRemove = document.querySelectorAll('.time .list_wrapper option');
+                Array.from(optionRemove).map((item) => item.remove());
+
+                for (let i = Hour; i < 20; i++) {
+                    const wrapper = document.querySelector('.time .list_wrapper');
+                    const option = document.createElement('option');
+                    option.textContent = `${i}:00`;
+                    option.value = `${option.textContent}`;
+                    wrapper.append(option);
+                }
+            } else  if (Hour > 19 && optionData.selected === true) {
+                const optionRemove = document.querySelectorAll('.time .list_wrapper option');
+                Array.from(optionRemove).map((item) => item.remove());
+                createDefaultValueTimeText();
+                console.log('На сегодня нет доступного времени! Выберите другой день.');
+            } else {
+                const optionRemove = document.querySelectorAll('.time .list_wrapper option');
+                Array.from(optionRemove).map((item) => item.remove());
+                createTimeDefault();
+            }
+        });
 
         const createTimeDefault = () => {
             for (let i = 10; i < 20; i++) {
-                const wrapper = document.querySelector(wrapperBlock);
-                const option = document.createElement(optionElement);
+                const wrapper = document.querySelector('.time .list_wrapper');
+                const option = document.createElement('option');
                 option.textContent = `${i}:00`;
                 option.value = `${option.textContent}`;
                 wrapper.append(option);
-            }
-        };     
-
+            }    
+        };
+        
         createTimeDefault();
     }
 
-    createTime('.time .list_wrapper', 'option');
-    
+    createTime();
 
+    function createDefaultValueTimeText() {
+        const listWrapper = document.querySelector("#post-form > div.time > select");
+        const option = document.createElement('option');
+        option.disabled = true;
+        option.textContent = `На сегодня нет доступного времени! Выберите другой день.`;
+        listWrapper.append(option);
+    }
+    
     function createRestList(wrapperBlock) {
         for (let i = 3; i < 28; i++) {
             const wrapper = document.querySelector(wrapperBlock);
@@ -102,21 +136,7 @@ window.addEventListener('DOMContentLoaded', () => {
     createRestList('.floors .list_wrapper');
     createRestListRooms('.rooms .list_wrapper');
 
-
-    // function checktime() {
-    //     let optionArr = document.querySelectorAll('.time .list_wrapper option');
-    //     const wrapper = document.querySelector('.time .list_wrapper');
-    //     let optionTime = optionArr.textContent;
-    //     for (let i = 0; i < optionArr.length; i++) {
-    //         if (optionTime < Hour) {
-    //             console.log('Done');
-    //         }
-    //     }
-    //     console.log(optionArr[1].textContent[0]);     
-    // }
-
-    // checktime();
-
+    // Clear Inputs
 
     function clearInputs(btn, sectionSelect) {
         let btnClear = document.querySelector(btn);
@@ -157,8 +177,11 @@ window.addEventListener('DOMContentLoaded', () => {
             object[key] = value;
         });
 
+        const textarea = document.querySelector('textarea');
+        const optionTime = document.querySelector("#post-form > div.time > select > option");
+
         for (let key in object) {
-            if (object[key] === 'null' || object[key] === '') {
+            if (object[key] === 'null' || object[key] === '' || textarea.value === '' || !optionTime) {
                 return console.log('Вы не отметили все поля!');
             } else {
                 return console.log(JSON.stringify(object));
@@ -173,8 +196,5 @@ window.addEventListener('DOMContentLoaded', () => {
         
     const applicantForm = document.getElementById('post-form');
     applicantForm.addEventListener('submit', handleFormSubmit);
+    
 });
-
-
-
-
