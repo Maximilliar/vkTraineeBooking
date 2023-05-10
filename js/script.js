@@ -181,7 +181,7 @@ window.addEventListener('DOMContentLoaded', () => {
         const optionTime = document.querySelector("#post-form > div.time > select > option");
 
         for (let key in object) {
-            if (object[key] === 'null' || object[key] === '' || textarea.value === '' || !optionTime[1]) {
+            if (object[key] === 'null' || object[key] === '' || textarea.value === '') {
                 return console.log('Вы не отметили все поля!');
             } else {
                 return console.log(JSON.stringify(object));
